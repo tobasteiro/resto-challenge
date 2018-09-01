@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet id="02-create-meal-entity"
+		author="tobias.basteiro">
+		<createTable tableName="meal"
+			remarks="A table that contains all restaurants">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints nullable="false" unique="true"
+					primaryKey="true" />
+			</column>
+			<column name="name" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="varchar(100)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="price" type="numeric(6, 2)">
+				<constraints nullable="false" />
+			</column>
+			<column name="restaurant_id" type="int" />
+		</createTable>
+
+		<addForeignKeyConstraint
+			baseTableName="meal" baseColumnNames="restaurant_id"
+			constraintName="restaurant_meal_fk" referencedTableName="restaurant"
+			referencedColumnNames="id" />
+	</changeSet>
+</databaseChangeLog>

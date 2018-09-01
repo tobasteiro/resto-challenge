@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet id="01-create-restaurant-entity"
+		author="tobias.basteiro">
+		<createTable tableName="restaurant"
+			remarks="A table that contains all restaurants">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints nullable="false" unique="true"
+					primaryKey="true" />
+			</column>
+			<column name="logo" type="varchar(250)" />
+			<column name="commercial_name" type="varchar(100)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="legal_name" type="varchar(100)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="rating" type="numeric(7, 2)" />
+			<column name="commercial_email" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="admin_number" type="varchar(100)" />
+			<column name="address" type="varchar(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="latitude" type="numeric(8, 2)">
+				<constraints nullable="false" />
+			</column>
+			<column name="longitude" type="numeric(8, 2)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+</databaseChangeLog>
