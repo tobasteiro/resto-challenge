@@ -40,6 +40,14 @@ public class Meal {
     super();
   }
 
+  public Meal(String name, String description, BigDecimal price, Restaurant restaurant) {
+    super();
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.restaurant = restaurant;
+  }
+
   public String getName() {
     return name;
   }

@@ -36,10 +36,10 @@ public class Restaurant {
   @Column(name = "rating")
   private BigDecimal rating;
 
-  @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   private List<Review> reviews;
 
-  @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   private List<Meal> meals;
 
   @Column(name = "commercial_email", nullable = false)
@@ -63,6 +63,10 @@ public class Restaurant {
 
   public Long getId() {
     return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getLogo() {

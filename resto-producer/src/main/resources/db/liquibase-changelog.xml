@@ -11,5 +11,7 @@
 		relativeToChangelogFile="true" />
 	<include file="changelog/03-create-review-entity.xml"
 		relativeToChangelogFile="true" />
+	<include file="changelog/04-create-order-entity.xml"
+		relativeToChangelogFile="true" />
 
 </databaseChangeLog>

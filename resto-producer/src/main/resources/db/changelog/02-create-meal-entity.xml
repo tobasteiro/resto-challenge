@@ -8,7 +8,7 @@
 	<changeSet id="02-create-meal-entity"
 		author="tobias.basteiro">
 		<createTable tableName="meal"
-			remarks="A table that contains all restaurants">
+			remarks="A table that contains restaurant meals">
 			<column name="id" type="int" autoIncrement="true">
 				<constraints nullable="false" unique="true"
 					primaryKey="true" />

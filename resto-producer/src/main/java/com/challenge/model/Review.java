@@ -41,6 +41,14 @@ public class Review {
   public Review() {
     super();
   }
+  
+  public Review(String name, String description, Integer rating, Restaurant restaurant) {
+    super();
+    this.name = name;
+    this.description = description;
+    this.rating = rating;
+    this.restaurant = restaurant;
+  }
 
   public Long getId() {
     return id;
