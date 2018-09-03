@@ -1,6 +1,7 @@
 package com.challenge.dto;
 
 public class LocationDto {
+  //TODO validate format ##.######
   double latitude;
   double longitude;
 

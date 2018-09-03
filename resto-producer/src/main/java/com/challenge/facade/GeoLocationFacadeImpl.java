@@ -5,11 +5,14 @@ import com.google.maps.DistanceMatrixApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DistanceMatrix;
+import com.google.maps.model.Duration;
 import com.google.maps.model.LatLng;
 import com.google.maps.model.TravelMode;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 @Component
 public class GeoLocationFacadeImpl implements GeoLocationFacade {
@@ -36,7 +39,8 @@ public class GeoLocationFacadeImpl implements GeoLocationFacade {
       // TODO throw custom exception
     }
 
-    return trix.rows[0].elements[0].duration.humanReadable;
+    Duration duration = trix.rows[0].elements[0].duration;
+    return Objects.nonNull(duration) ? duration.humanReadable : "N/A";
   }
 
 }
