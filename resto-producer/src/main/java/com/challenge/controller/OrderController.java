@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/restaurants/orders")
+@RequestMapping("/restaurants")
 public class OrderController {
 
   @Autowired
   private OrderService orderService;
 
   @ApiOperation(value = "Creates an order.", tags = { SwaggerTags.TAG_ORDER })
-  @RequestMapping(value = "/restaurants/{restaurantId}/create", method = RequestMethod.POST)
+  @RequestMapping(value = "/{restaurantId}/orders/", method = RequestMethod.POST)
   public OrderResponseDto createMeal(@RequestBody @Valid OrderDto orderDto,
       @PathVariable Long restaurantId) {
     return orderService.createOrder(orderDto, restaurantId);

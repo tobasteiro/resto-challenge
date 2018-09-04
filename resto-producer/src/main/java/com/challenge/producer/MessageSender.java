@@ -23,7 +23,7 @@ public class MessageSender<T> {
    */
   @Async
   public void send(T payload, String topic) {
-    LOG.info("sending car='{}'", payload.toString());
+    LOG.info("sending message='{}'", payload.toString());
     kafkaTemplate.send(topic, payload);
   }
 

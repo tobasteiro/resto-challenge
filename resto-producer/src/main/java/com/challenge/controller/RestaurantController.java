@@ -30,7 +30,7 @@ public class RestaurantController {
   private RestaurantService restaurantService;
 
   @ApiOperation(value = "Creates a restaurant.", tags = { SwaggerTags.TAG_RESTAURANT })
-  @RequestMapping(value = "/create", method = RequestMethod.POST)
+  @RequestMapping(value = "/", method = RequestMethod.POST)
   public Long createRestaurant(@RequestBody @Valid RestaurantDto restaurantDto) {
     return restaurantService.createRestaurant(restaurantDto);
   }
@@ -62,7 +62,7 @@ public class RestaurantController {
   }
   
   @ApiOperation(value = "Creates a meal.", tags = { SwaggerTags.TAG_MEAL })
-  @RequestMapping(value = "/{id}/meals/create", method = RequestMethod.POST)
+  @RequestMapping(value = "/{id}/meals", method = RequestMethod.POST)
   public MealDto createMeal(@PathVariable Long id, @Valid @RequestBody MealDto mealDto) {
     return restaurantService.createMeal(id, mealDto);
   }
@@ -80,4 +80,5 @@ public class RestaurantController {
     restaurantService.deleteMeal(id, mealId);
   }
   
+  //TODO Add crud for reviews
 }

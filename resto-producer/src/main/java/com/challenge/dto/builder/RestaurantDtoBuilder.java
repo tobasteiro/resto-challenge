@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 
 public class RestaurantDtoBuilder {
 
+  public Long id;
   public String logoUrl;
   public String commercialName;
   public String legalName;
@@ -28,7 +29,7 @@ public class RestaurantDtoBuilder {
   }
 
   public RestaurantDto build() {
-    return new RestaurantDto(logoUrl, commercialName, legalName, rating, commercialEmail,
+    return new RestaurantDto(id, logoUrl, commercialName, legalName, rating, commercialEmail,
         adminNumber, address, location, meals, reviews);
   }
 

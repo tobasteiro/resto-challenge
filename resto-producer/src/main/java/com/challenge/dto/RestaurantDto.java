@@ -10,10 +10,10 @@ public class RestaurantDto extends RestaurantBasicInformationDto {
   private List<MealDto> meals;
   private List<ReviewDto> reviews;
 
-  public RestaurantDto(String logoUrl, String commercialName, String legalName, BigDecimal rating,
+  public RestaurantDto(Long id, String logoUrl, String commercialName, String legalName, BigDecimal rating,
       String commercialEmail, String adminNumber, String address, LocationDto location,
       List<MealDto> meals, List<ReviewDto> reviews) {
-    super(logoUrl, commercialName, legalName, rating, commercialEmail, adminNumber, address,
+    super(id, logoUrl, commercialName, legalName, rating, commercialEmail, adminNumber, address,
         location);
     this.meals = meals;
     this.reviews = reviews;

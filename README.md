@@ -34,3 +34,15 @@
 ```
 
 <h1>Producer execution.</h1>
+
+1- Run application in jar location:
+```shell
+	java -jar resto-producer-1.0-SNAPSHOT.jar
+```
+
+<h1>Consumer execution.</h1>
+
+1- Run application in jar location:
+```shell
+	java -jar resto-consumer-1.0-SNAPSHOT.jar
+```

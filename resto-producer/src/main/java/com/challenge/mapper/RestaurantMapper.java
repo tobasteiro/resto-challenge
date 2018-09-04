@@ -29,7 +29,6 @@ public class RestaurantMapper {
    */
   public Restaurant mapDbRestaurant(RestaurantBasicInformationDto restaurantDto) {
     Restaurant restaurant = new Restaurant();
-    
     restaurant.setAddress(restaurantDto.getAddress());
     restaurant.setAdminNumber(restaurantDto.getAdminNumber());
     restaurant.setCommercialEmail(restaurantDto.getCommercialEmail());
@@ -102,6 +101,7 @@ public class RestaurantMapper {
    */
   public RestaurantDto mapRestaurantInformation(Restaurant restaurant) {
     return RestaurantDto.builder().with(b -> {
+      b.id = restaurant.getId();
       b.address = restaurant.getAddress();
       b.adminNumber = restaurant.getAdminNumber();
       b.commercialEmail = restaurant.getCommercialEmail();

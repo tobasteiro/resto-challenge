@@ -3,27 +3,18 @@ package com.challenge.dto;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-
 public class OrderDto {
 
-  @NotNull
   private List<Long> meals;
-
-  @NotNull
   private BigDecimal totalCost;
-
-  @NotNull
   private String address;
-
-  @NotNull
   private LocationDto location;
-
-  @NotNull
   private String restaurantMail;
-
-  @NotNull
   private String phoneNumber;
+
+  public OrderDto() {
+    super();
+  }
 
   public List<Long> getMeals() {
     return meals;

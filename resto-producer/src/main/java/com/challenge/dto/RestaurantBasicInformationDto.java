@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 public class RestaurantBasicInformationDto {
 
+  private Long id;
   private String logoUrl;
   @NotNull
   private String commercialName;
@@ -14,16 +15,18 @@ public class RestaurantBasicInformationDto {
   private BigDecimal rating;
   @NotNull
   private String commercialEmail;
+  //TODO Validate phone format
   private String adminNumber;
   @NotNull
   private String address;
   @NotNull
   private LocationDto location;
 
-  public RestaurantBasicInformationDto(String logoUrl, String commercialName, String legalName,
-      BigDecimal rating, String commercialEmail, String adminNumber, String address,
-      LocationDto location) {
+  public RestaurantBasicInformationDto(Long id, String logoUrl, String commercialName,
+      String legalName, BigDecimal rating, String commercialEmail, String adminNumber,
+      String address, LocationDto location) {
     super();
+    this.id = id;
     this.logoUrl = logoUrl;
     this.commercialName = commercialName;
     this.legalName = legalName;
@@ -32,6 +35,14 @@ public class RestaurantBasicInformationDto {
     this.adminNumber = adminNumber;
     this.address = address;
     this.location = location;
+  }
+  
+  public Long getId() {
+    return id;
+  }
+  
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getLogoUrl() {

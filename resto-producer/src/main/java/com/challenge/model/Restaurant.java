@@ -36,10 +36,10 @@ public class Restaurant {
   @Column(name = "rating")
   private BigDecimal rating;
 
-  @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+  @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Review> reviews;
 
-  @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+  @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Meal> meals;
 
   @Column(name = "commercial_email", nullable = false)
