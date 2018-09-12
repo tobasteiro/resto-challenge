@@ -2,6 +2,7 @@ package com.challenge.mapper;
 
 import com.challenge.dto.LocationDto;
 import com.challenge.dto.MealDto;
+import com.challenge.dto.RateRestaurantResponseDto;
 import com.challenge.dto.RestaurantBasicInformationDto;
 import com.challenge.dto.RestaurantDto;
 import com.challenge.dto.ReviewDto;
@@ -13,6 +14,7 @@ import com.challenge.util.OperationUtils;
 
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -123,7 +125,11 @@ public class RestaurantMapper {
         .collect(Collectors.toList());
   }
 
-  private List<MealDto> mapMealsInformation(List<Meal> meals) {
+  /**
+   * @param meals from database.
+   * @return mapped mealsDto
+   */
+  public List<MealDto> mapMealsInformation(List<Meal> meals) {
     if (Objects.isNull(meals) || meals.isEmpty()) {
       return null;
     }
@@ -186,6 +192,31 @@ public class RestaurantMapper {
     if (Objects.nonNull(mealDto.getMealPrice())) {
       meal.setPrice(mealDto.getMealPrice());
     }
+  }
+
+  /**
+   * @param reviewDto.
+   * @param restaurant.
+   * @return review for db.
+   */
+  public Review mapDbReview(ReviewDto reviewDto, Restaurant restaurant) {
+    Review review = new Review();
+    review.setDescription(reviewDto.getReviewDescription());
+    review.setName(reviewDto.getReviewName());
+    review.setRating(reviewDto.getRating());
+    review.setRestaurant(restaurant);
+    return review;
+  }
+
+  /**
+   * @param rating total.
+   * @param restaurantId.
+   * @param reviewDto.
+   * @return mapped rate restaurant response.
+   */
+  public RateRestaurantResponseDto mapRateRestaurantResponse(Long restaurantId, ReviewDto reviewDto,
+      BigDecimal totalRating) {
+    return new RateRestaurantResponseDto(restaurantId, reviewDto, totalRating);
   }
 
 }

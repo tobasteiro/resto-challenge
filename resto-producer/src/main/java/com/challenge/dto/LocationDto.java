@@ -15,8 +15,6 @@ public class LocationDto {
     super();
   }
 
-
-
   public double getLatitude() {
     return latitude;
   }

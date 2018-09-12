@@ -5,7 +5,7 @@ import java.util.List;
 
 public class OrderDto {
 
-  private List<Long> meals;
+  private List<MealDto> meals;
   private BigDecimal totalCost;
   private String address;
   private LocationDto location;
@@ -16,7 +16,7 @@ public class OrderDto {
     super();
   }
 
-  public List<Long> getMeals() {
+  public List<MealDto> getMeals() {
     return meals;
   }
 

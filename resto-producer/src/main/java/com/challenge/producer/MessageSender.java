@@ -7,6 +7,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import com.challenge.exception.KafkaException;
+
 @Component
 public class MessageSender<T> {
 
@@ -20,11 +22,16 @@ public class MessageSender<T> {
    * 
    * @param payload information.
    * @param topic name.
+   * @throws KafkaException. 
    */
   @Async
-  public void send(T payload, String topic) {
+  public void send(T payload, String topic) throws KafkaException {
     LOG.info("sending message='{}'", payload.toString());
-    kafkaTemplate.send(topic, payload);
+    try {
+    	kafkaTemplate.send(topic, payload);
+    } catch(Exception e) {
+    	throw new KafkaException("Error sending message to topic", e);
+    }
   }
 
 }

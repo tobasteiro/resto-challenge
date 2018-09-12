@@ -1,13 +1,8 @@
 package com.challenge.controller;
 
-import com.challenge.dto.MealDto;
-import com.challenge.dto.RestaurantBasicInformationDto;
-import com.challenge.dto.RestaurantDto;
-import com.challenge.dto.RestaurantFilterDto;
-import com.challenge.service.RestaurantService;
-import com.challenge.util.SwaggerTags;
+import java.util.List;
 
-import io.swagger.annotations.ApiOperation;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,10 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-import java.util.List;
+import com.challenge.dto.MealDto;
+import com.challenge.dto.RateRestaurantResponseDto;
+import com.challenge.dto.RestaurantBasicInformationDto;
+import com.challenge.dto.RestaurantDto;
+import com.challenge.dto.RestaurantFilterDto;
+import com.challenge.dto.ReviewDto;
+import com.challenge.service.RestaurantService;
+import com.challenge.util.SwaggerTags;
 
-import javax.validation.Valid;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/restaurants")
@@ -31,7 +32,7 @@ public class RestaurantController {
 
   @ApiOperation(value = "Creates a restaurant.", tags = { SwaggerTags.TAG_RESTAURANT })
   @RequestMapping(value = "/", method = RequestMethod.POST)
-  public Long createRestaurant(@RequestBody @Valid RestaurantDto restaurantDto) {
+  public RestaurantDto createRestaurant(@RequestBody @Valid RestaurantDto restaurantDto) {
     return restaurantService.createRestaurant(restaurantDto);
   }
 
@@ -54,11 +55,12 @@ public class RestaurantController {
       @RequestBody RestaurantBasicInformationDto restaurantDto) {
     return restaurantService.updateRestaurant(id, restaurantDto);
   }
-  
+
   @ApiOperation(value = "Rate a restaurant.", tags = { SwaggerTags.TAG_RESTAURANT })
   @RequestMapping(value = "/{id}/rate", method = RequestMethod.POST)
-  public BigDecimal rateRestaurant(@PathVariable Long id) {
-    return restaurantService.rateRestaurant(id);
+  public RateRestaurantResponseDto rateRestaurant(@PathVariable Long id,
+      @Valid @RequestBody ReviewDto request) {
+    return restaurantService.rateRestaurant(id, request);
   }
   
   @ApiOperation(value = "Creates a meal.", tags = { SwaggerTags.TAG_MEAL })
@@ -80,5 +82,4 @@ public class RestaurantController {
     restaurantService.deleteMeal(id, mealId);
   }
   
-  //TODO Add crud for reviews
 }

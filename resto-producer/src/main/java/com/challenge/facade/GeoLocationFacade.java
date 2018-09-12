@@ -1,6 +1,7 @@
 package com.challenge.facade;
 
-import com.google.maps.model.LatLng;
+import com.challenge.exception.GeolocationException;
+import com.challenge.model.Location;
 
 public interface GeoLocationFacade {
 
@@ -8,7 +9,8 @@ public interface GeoLocationFacade {
    * @param origin location.
    * @param destination location.
    * @return ETA between origin and destination.s
+   * @throws GeolocationException 
    */
-  String calculateETA(LatLng origin, LatLng destination);
-
+  String calculateETA(Location origin, Location destination) throws GeolocationException;
+  
 }

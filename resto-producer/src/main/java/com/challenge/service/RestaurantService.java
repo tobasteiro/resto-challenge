@@ -1,14 +1,15 @@
 package com.challenge.service;
 
-import com.challenge.dto.MealDto;
-import com.challenge.dto.RestaurantBasicInformationDto;
-import com.challenge.dto.RestaurantDto;
-import com.challenge.dto.RestaurantFilterDto;
-
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
+
+import com.challenge.dto.MealDto;
+import com.challenge.dto.RateRestaurantResponseDto;
+import com.challenge.dto.RestaurantBasicInformationDto;
+import com.challenge.dto.RestaurantDto;
+import com.challenge.dto.RestaurantFilterDto;
+import com.challenge.dto.ReviewDto;
 
 public interface RestaurantService {
 
@@ -16,9 +17,9 @@ public interface RestaurantService {
    * Creates a restaurant.
    * 
    * @param restaurantDto information.
-   * @return restaurant generated id.
+   * @return restaurant information.
    */
-  Long createRestaurant(RestaurantDto restaurantDto);
+  RestaurantDto createRestaurant(RestaurantDto restaurantDto);
 
   /**
    * List restaurants by filter.
@@ -45,10 +46,11 @@ public interface RestaurantService {
   /**
    * Rates a restaurant from its reviews.
    * 
-   * @param restaurant id.
-   * @return calculated rating.
+   * @param restaurantId 
+   * @param review information.
+   * @return review info with calculated rating.
    */
-  BigDecimal rateRestaurant(Long id);
+  RateRestaurantResponseDto rateRestaurant(Long restaurantId, ReviewDto request);
 
   /**
    * Creates a new meal for a restaurant.

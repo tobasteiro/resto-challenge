@@ -1,12 +1,12 @@
 package com.challenge.util;
 
-import com.challenge.dto.ReviewDto;
-import com.challenge.model.Meal;
-import com.challenge.model.Review;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+
+import com.challenge.dto.MealDto;
+import com.challenge.dto.ReviewDto;
+import com.challenge.model.Review;
 
 public class OperationUtils {
 
@@ -40,10 +40,10 @@ public class OperationUtils {
    * @param meals with prices.
    * @return calculated total amount.
    */
-  public static BigDecimal calculateMealsTotalPrice(List<Meal> meals) {
+  public static BigDecimal calculateMealsTotalPrice(List<MealDto> meals) {
     if (Objects.isNull(meals)) {
       return null;
     }
-    return meals.stream().map(m -> m.getPrice()).reduce(BigDecimal.ZERO, (p, q) -> p.add(q));
+    return meals.stream().map(m -> m.getMealPrice()).reduce(BigDecimal.ZERO, (p, q) -> p.add(q));
   }
 }

@@ -1,19 +1,19 @@
 package com.challenge.service;
 
-import com.challenge.dto.OrderDto;
-import com.challenge.dto.OrderResponseDto;
-
 import javax.validation.Valid;
+
+import com.challenge.dto.OrderRequestDto;
+import com.challenge.dto.OrderResponseDto;
 
 public interface OrderService {
 
   /**
    * Creates a new order.
    * 
-   * @param orderDto information.
+   * @param orderRequestDto information.
    * @param restaurantId.
    * @return new order with ETA (estimated time of arrival).
    */
-  OrderResponseDto createOrder(@Valid OrderDto orderDto, Long restaurantId);
+  OrderResponseDto createOrder(@Valid OrderRequestDto orderRequestDto, Long restaurantId);
 
 }

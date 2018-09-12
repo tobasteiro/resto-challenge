@@ -41,7 +41,4 @@ public class Location {
     return this.longitude;
   }
 
-  public LatLng getLocation() {
-    return new LatLng(latitude, longitude);
-  }
 }

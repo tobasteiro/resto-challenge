@@ -1,12 +1,17 @@
 package com.challenge.mapper;
 
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
+
+import com.challenge.dto.MealDto;
 import com.challenge.dto.OrderDto;
+import com.challenge.dto.OrderRequestDto;
 import com.challenge.dto.OrderResponseDto;
 import com.challenge.model.Order;
 import com.challenge.model.Restaurant;
 import com.challenge.util.LocationUtils;
-
-import org.springframework.stereotype.Component;
 
 @Component
 public class OrderMapper {
@@ -16,14 +21,14 @@ public class OrderMapper {
    * @param orderDto.
    * @return mapped db order.
    */
-  public Order mapDbOder(OrderDto orderDto, Restaurant restaurant) {
+  public Order mapDbOder(OrderRequestDto orderRequestDto, Restaurant restaurant) {
     Order order = new Order();
-    order.setAddress(orderDto.getAddress());
-    order.setLocation(LocationUtils.createLocation(orderDto.getLocation()));
+    order.setAddress(orderRequestDto.getAddress());
+    order.setLocation(LocationUtils.createLocation(orderRequestDto.getLocation()));
 
-    restaurant.getMeals().stream().filter(m -> orderDto.getMeals().contains(m.getId()))
+    restaurant.getMeals().stream().filter(m -> orderRequestDto.getMeals().contains(m.getId()))
         .forEach(m -> order.addMeal(m));
-    order.setTotalCost(orderDto.getTotalCost());
+    order.setTotalCost(orderRequestDto.getTotalCost());
     return order;
   }
 
@@ -34,6 +39,19 @@ public class OrderMapper {
    */
   public OrderResponseDto mapOrderResponse(OrderDto orderDto, String calculatedETA) {
     return new OrderResponseDto(orderDto, calculatedETA);
+  }
+
+  /**
+   * @param orderRequestDto.
+   * @param mealsInformation.
+   * @return order dto with meal info.
+   */
+  public OrderDto mapOrderMealsInformation(OrderRequestDto orderRequestDto,
+      List<MealDto> mealsInformation) {
+    OrderDto orderDto = new OrderDto();
+    BeanUtils.copyProperties(orderRequestDto, orderDto);
+    orderDto.setMeals(mealsInformation);
+    return orderDto;
   }
 
 }

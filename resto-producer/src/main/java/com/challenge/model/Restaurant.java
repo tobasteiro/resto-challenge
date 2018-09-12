@@ -1,7 +1,9 @@
 package com.challenge.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -147,6 +149,13 @@ public class Restaurant {
 
   public void setLocation(Location location) {
     this.location = location;
+  }
+
+  public void addReview(Review review) {
+    if (Objects.isNull(this.reviews)) {
+      this.reviews = new ArrayList<>();
+    }
+    this.reviews.add(review);
   }
 
 }

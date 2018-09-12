@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-public class OrderDto {
+public class OrderRequestDto {
 
   @NotNull
-  private List<MealDto> meals;
+  private List<Long> meals;
 
   @NotNull
   private BigDecimal totalCost;
@@ -25,16 +25,8 @@ public class OrderDto {
   @NotNull
   private String phoneNumber;
 
-  public OrderDto() {
-    super();
-  }
-
-  public List<MealDto> getMeals() {
+  public List<Long> getMeals() {
     return meals;
-  }
-
-  public void setMeals(List<MealDto> meals) {
-    this.meals = meals;
   }
 
   public BigDecimal getTotalCost() {
