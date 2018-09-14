@@ -6,20 +6,20 @@ public class RestaurantException extends RuntimeException {
 
   private static final long serialVersionUID = 5533386036647805963L;
   
-  /**
-   * Default constructor.
-   */
-  public RestaurantException(String message) {
-    super("Restaurant Exception: " + message);
-  }
-  
-  
-  public RestaurantException(String message, Throwable cause) {
-    super(message, cause);
+  private final RestaurantError error;
+
+  public RestaurantException(RestaurantError error, Throwable cause) {
+    super(error.getErrorDescription(), cause);
+    this.error = error;
   }
 
-  public RestaurantException(RestaurantError restaurantError) {
-    this(restaurantError.getHttpCode() + " - " + restaurantError.getErrorDescription());
+  public RestaurantException(RestaurantError error) {
+    super(error.getHttpCode() + " - " + error.getErrorDescription());
+    this.error = error;
+  }
+  
+  public RestaurantError getError() {
+    return error;
   }
 
 }

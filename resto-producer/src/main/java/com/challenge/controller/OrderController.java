@@ -25,7 +25,7 @@ public class OrderController {
 
   @ApiOperation(value = "Creates an order.", tags = { SwaggerTags.TAG_ORDER })
   @RequestMapping(value = "/{restaurantId}/orders/", method = RequestMethod.POST)
-  public OrderResponseDto createMeal(@RequestBody @Valid OrderRequestDto orderRequestDto,
+  public OrderResponseDto createOrder(@RequestBody @Valid OrderRequestDto orderRequestDto,
       @PathVariable Long restaurantId) {
     return orderService.createOrder(orderRequestDto, restaurantId);
   }

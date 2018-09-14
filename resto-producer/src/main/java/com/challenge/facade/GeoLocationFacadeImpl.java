@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.challenge.exception.GeolocationException;
 import com.challenge.model.Location;
@@ -22,19 +24,20 @@ public class GeoLocationFacadeImpl implements GeoLocationFacade {
 	private String apiKey;
 
 	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED)
 	public String calculateETA(Location origin, Location destination) throws GeolocationException {
-		GeoApiContext context = new GeoApiContext().setApiKey(apiKey);
+    GeoApiContext context = new GeoApiContext().setApiKey(apiKey);
 
 		DistanceMatrix trix = null;
 		try {
-			DistanceMatrixApiRequest req = DistanceMatrixApi.newRequest(context);
+		  DistanceMatrixApiRequest req = DistanceMatrixApi.newRequest(context);
 			LatLng originApi = new LatLng(origin.getLatitude(), origin.getLongitude());
 			LatLng destinationApi = new LatLng(destination.getLatitude(), destination.getLongitude());
 			// TravelMode set to driving for motorcycle.
-			trix = req.origins(originApi).destinations(destinationApi).mode(TravelMode.DRIVING).language("es-ES")
-					.await();
+      DistanceMatrixApiRequest matrixApiRequest = req.origins(originApi)
+          .destinations(destinationApi).mode(TravelMode.DRIVING).language("es-ES");
+      trix = matrixApiRequest.await();
 		} catch (Exception e) {
-			// PendingResultBase.await throws generic Exception
 			throw new GeolocationException("Error calling google maps api", e);
 		}
 

@@ -23,6 +23,10 @@ public class MealDto {
     this.mealDescription = mealDescription;
     this.mealPrice = mealPrice;
   }
+  
+  public MealDto() {
+    super();
+  }
 
   public Long getMealId() {
     return mealId;

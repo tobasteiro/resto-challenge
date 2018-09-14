@@ -1,86 +1,22 @@
 {
-	"id": "43185ba3-a0b7-4fa2-b5a8-1015003620a3",
-	"name": "challenge",
-	"description": "",
-	"auth": null,
-	"events": null,
-	"variables": [],
-	"order": [
-		"4cef3a73-4a8c-4d00-925b-4cf45f08f9e5",
-		"6a8a88d1-ab36-4b2f-839e-c0c88098dfc1",
-		"242137e7-cd87-4b90-baeb-4733c8f69924",
-		"e808aa06-50da-4bbf-ba63-0fa87ee74034",
-		"df002c52-6164-431a-892f-7d98ce8a4962",
-		"56a5e4b8-8438-4b35-bccc-1e54ce51b4c0"
-	],
-	"folders_order": [],
-	"folders": [],
-	"requests": [
+	"info": {
+		"_postman_id": "43185ba3-a0b7-4fa2-b5a8-1015003620a3",
+		"name": "challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
 		{
-			"id": "242137e7-cd87-4b90-baeb-4733c8f69924",
-			"name": "restaurant-delete",
-			"url": "http://localhost:8080/restaurants/{{restaurant_id}}",
-			"description": "Creates a restaurant",
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"method": "DELETE",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "31a70522-529d-45d5-8bb4-4f5816cdc6ef",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			],
-			"folder": null,
-			"rawModeData": "",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
-		},
-		{
-			"id": "4cef3a73-4a8c-4d00-925b-4cf45f08f9e5",
 			"name": "restaurant-create",
-			"url": "http://localhost:8080/restaurants/",
-			"description": "Creates a restaurant",
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"method": "POST",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": [
+			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "264be3fa-2b00-484a-963a-206e821ec71e",
+						"id": "9d5c3a8b-ba9e-4e0f-8baf-5e5785bb00f0",
 						"type": "text/javascript",
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);",
 							"",
-							"postman.setGlobalVariable(\"restaurant_id\", jsonData);"
+							"postman.setGlobalVariable(\"restaurant_id\", jsonData.id);"
 						]
 					}
 				},
@@ -95,138 +31,220 @@
 					}
 				}
 			],
-			"folder": null,
-			"rawModeData": "{\n  \"address\": \"1 de Mayo 1000, Godoy Cruz, Mendoza\",\n  \"adminNumber\": \"+54 11 5555 4444\",\n  \"commercialEmail\": \"admin@gmail.com\",\n  \"commercialName\": \"Pepsi Name\",\n  \"legalName\": \"Pepsi Deli SRL\",\n  \"location\": {\n    \"latitude\": -32.914459,\n    \"longitude\": -68.858399\n  },\n  \"logoUrl\": \"http://orig11.deviantart.net/c4b2/f/2009/132/5/6/pepsi_logotype_by_douf.jpg\",\n  \"meals\": [\n    {\n      \"mealDescription\": \"Pepsi 1l\",\n      \"mealName\": \"Pepsi bottle\",\n      \"mealPrice\": 10\n    }\n  ],\n  \"rating\": 3,\n  \"reviews\": [\n    {\n      \"rating\": 3,\n      \"reviewDescription\": \"Not too shabby\",\n      \"reviewName\": \"Good attention\"\n    }\n  ]\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"address\": \"1 de Mayo 1000, Godoy Cruz, Mendoza\",\n  \"adminNumber\": \"+54 11 5555 4444\",\n  \"commercialEmail\": \"admin@gmail.com\",\n  \"commercialName\": \"Pepsi Name\",\n  \"legalName\": \"Pepsi Deli SRL\",\n  \"location\": {\n    \"latitude\": -32.914459,\n    \"longitude\": -68.858399\n  },\n  \"logoUrl\": \"http://orig11.deviantart.net/c4b2/f/2009/132/5/6/pepsi_logotype_by_douf.jpg\",\n  \"meals\": [\n    {\n      \"mealDescription\": \"Pepsi 1l\",\n      \"mealName\": \"Pepsi bottle\",\n      \"mealPrice\": 10\n    },\n    {\n      \"mealDescription\": \"Coca 1l\",\n      \"mealName\": \"Coke bottle\",\n      \"mealPrice\": 20\n    }\n  ],\n  \"rating\": 3,\n  \"reviews\": [\n    {\n      \"rating\": 3,\n      \"reviewDescription\": \"Not too shabby\",\n      \"reviewName\": \"Good attention\"\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/restaurants/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restaurants",
+						""
+					]
+				},
+				"description": "Creates a restaurant"
+			},
+			"response": []
 		},
 		{
-			"id": "56a5e4b8-8438-4b35-bccc-1e54ce51b4c0",
-			"name": "order-create",
-			"url": "http://localhost:8080/restaurants/{{restaurant_id}}/orders/",
-			"description": "Creates a restaurant",
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"method": "POST",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": [],
-			"folder": null,
-			"rawModeData": "{\n  \"address\": \"Montevideo 300, Mendoza, Mendoza\",\n  \"location\": {\n    \"latitude\": -32.891973,\n    \"longitude\": -68.843720\n  },\n  \"meals\": [\n    1\n  ],\n  \"totalCost\": 10,\n  \"phoneNumber\": \"+541144993322\",\n  \"restaurantMail\": \"tobasteiro@gmail.com\"\n\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
-		},
-		{
-			"id": "6a8a88d1-ab36-4b2f-839e-c0c88098dfc1",
 			"name": "restaurant-rate",
-			"url": "http://localhost:8080/restaurants/{{restaurant_id}}/rate",
-			"description": "Creates a restaurant",
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"method": "POST",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": [
+			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "72399d91-9daf-4618-abe2-38d44b924e03",
+						"id": "77974933-d960-4f39-af3e-0a7cccc45255",
 						"type": "text/javascript",
 						"exec": [
-							"var jsonData = JSON.parse(responseBody);",
-							"",
-							"postman.setGlobalVariable(\"restaurant_id\", jsonData);"
+							""
 						]
 					}
 				}
 			],
-			"folder": null,
-			"rawModeData": "",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
-		},
-		{
-			"id": "df002c52-6164-431a-892f-7d98ce8a4962",
-			"name": "restaurant-list",
-			"url": "http://localhost:8080/restaurants/?ratingFrom=2&ratingTo=4",
-			"description": "Creates a restaurant",
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"method": "GET",
-			"pathVariableData": [],
-			"queryParams": [
-				{
-					"key": "ratingFrom",
-					"value": "2",
-					"equals": true,
-					"description": "",
-					"enabled": true
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"rating\": 5,\n  \"reviewDescription\": \"desc string 2\",\n  \"reviewName\": \"name string 2\"\n}"
 				},
-				{
-					"key": "ratingTo",
-					"value": "4",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"auth": null,
-			"events": [],
-			"folder": null,
-			"rawModeData": "{\n  \"address\": \"1 de Mayo 1000, Godoy Cruz, Mendoza\",\n  \"adminNumber\": \"+54 11 2222 3333\",\n  \"commercialEmail\": \"admin@gmail.com\",\n  \"commercialName\": \"Pepsi Name\",\n  \"legalName\": \"Pepsi Deli SRL\",\n  \"location\": {\n    \"latitude\": -32.914459,\n    \"longitude\": -68.858399\n  },\n  \"logoUrl\": \"http://orig11.deviantart.net/c4b2/f/2009/132/5/6/pepsi_logotype_by_douf.jpg\",\n  \"meals\": [\n    {\n      \"mealDescription\": \"Pepsi 1l\",\n      \"mealName\": \"Pepsi bottle\",\n      \"mealPrice\": 10\n    },\n    {\n      \"mealDescription\": \"Pepsi 2l\",\n      \"mealName\": \"Pepsi bottle\",\n      \"mealPrice\": 20\n    }\n  ]\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
+				"url": {
+					"raw": "http://localhost:8080/restaurants/{{restaurant_id}}/rate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restaurants",
+						"{{restaurant_id}}",
+						"rate"
+					]
+				},
+				"description": "Creates a restaurant"
+			},
+			"response": []
 		},
 		{
-			"id": "e808aa06-50da-4bbf-ba63-0fa87ee74034",
-			"name": "restaurant-update",
-			"url": "http://localhost:8080/restaurants/{{restaurant_id}}",
-			"description": "Creates a restaurant",
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
+			"name": "restaurant-delete",
+			"event": [
 				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
+					"listen": "test",
+					"script": {
+						"id": "31a70522-529d-45d5-8bb4-4f5816cdc6ef",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			],
-			"method": "PATCH",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": [],
-			"folder": null,
-			"rawModeData": "{\n  \"address\": \"1 de Mayo 1000, Godoy Cruz, Mendoza\",\n  \"adminNumber\": \"+54 11 2222 3333\",\n  \"commercialEmail\": \"admin@gmail.com\",\n  \"commercialName\": \"Pepsi Name\",\n  \"legalName\": \"Pepsi Deli SRL\",\n  \"location\": {\n    \"latitude\": -32.914459,\n    \"longitude\": -68.858399\n  },\n  \"logoUrl\": \"http://orig11.deviantart.net/c4b2/f/2009/132/5/6/pepsi_logotype_by_douf.jpg\",\n  \"meals\": [\n    {\n      \"mealDescription\": \"Pepsi 1l\",\n      \"mealName\": \"Pepsi bottle\",\n      \"mealPrice\": 10\n    },\n    {\n      \"mealDescription\": \"Pepsi 2l\",\n      \"mealName\": \"Pepsi bottle\",\n      \"mealPrice\": 20\n    }\n  ]\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/restaurants/{{restaurant_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restaurants",
+						"{{restaurant_id}}"
+					]
+				},
+				"description": "Creates a restaurant"
+			},
+			"response": []
+		},
+		{
+			"name": "restaurant-update",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"address\": \"1 de Mayo 1000, Godoy Cruz, Mendoza\",\n  \"adminNumber\": \"+54 11 2222 3333\",\n  \"commercialEmail\": \"admin@gmail.com\",\n  \"commercialName\": \"Pepsi Name\",\n  \"legalName\": \"Pepsi Deli SRL\",\n  \"location\": {\n    \"latitude\": -32.914459,\n    \"longitude\": -68.858399\n  },\n  \"logoUrl\": \"http://orig11.deviantart.net/c4b2/f/2009/132/5/6/pepsi_logotype_by_douf.jpg\",\n  \"meals\": [\n    {\n      \"mealDescription\": \"Pepsi 1l\",\n      \"mealName\": \"Pepsi bottle\",\n      \"mealPrice\": 10\n    },\n    {\n      \"mealDescription\": \"Pepsi 2l\",\n      \"mealName\": \"Pepsi bottle\",\n      \"mealPrice\": 20\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/restaurants/{{restaurant_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restaurants",
+						"{{restaurant_id}}"
+					]
+				},
+				"description": "Creates a restaurant"
+			},
+			"response": []
+		},
+		{
+			"name": "restaurant-list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"address\": \"1 de Mayo 1000, Godoy Cruz, Mendoza\",\n  \"adminNumber\": \"+54 11 2222 3333\",\n  \"commercialEmail\": \"admin@gmail.com\",\n  \"commercialName\": \"Pepsi Name\",\n  \"legalName\": \"Pepsi Deli SRL\",\n  \"location\": {\n    \"latitude\": -32.914459,\n    \"longitude\": -68.858399\n  },\n  \"logoUrl\": \"http://orig11.deviantart.net/c4b2/f/2009/132/5/6/pepsi_logotype_by_douf.jpg\",\n  \"meals\": [\n    {\n      \"mealDescription\": \"Pepsi 1l\",\n      \"mealName\": \"Pepsi bottle\",\n      \"mealPrice\": 10\n    },\n    {\n      \"mealDescription\": \"Pepsi 2l\",\n      \"mealName\": \"Pepsi bottle\",\n      \"mealPrice\": 20\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/restaurants/?ratingFrom=2&ratingTo=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restaurants",
+						""
+					],
+					"query": [
+						{
+							"key": "ratingFrom",
+							"value": "2"
+						},
+						{
+							"key": "ratingTo",
+							"value": "4"
+						}
+					]
+				},
+				"description": "Creates a restaurant"
+			},
+			"response": []
+		},
+		{
+			"name": "order-create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"address\": \"Montevideo 300, Mendoza, Mendoza\",\n  \"location\": {\n    \"latitude\": -32.891973,\n    \"longitude\": -68.843720\n  },\n  \"meals\": [\n    1\n  ],\n  \"totalCost\": 10,\n  \"phoneNumber\": \"+541144993322\",\n  \"restaurantMail\": \"tobasteiro@gmail.com\"\n\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/restaurants/{{restaurant_id}}/orders/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restaurants",
+						"{{restaurant_id}}",
+						"orders",
+						""
+					]
+				},
+				"description": "Creates a restaurant"
+			},
+			"response": []
 		}
 	]
 }

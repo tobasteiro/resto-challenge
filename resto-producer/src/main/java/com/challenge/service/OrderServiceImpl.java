@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.UnexpectedRollbackException;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.challenge.dto.MealDto;
@@ -59,8 +58,9 @@ public class OrderServiceImpl implements OrderService {
   private String orderTopic;
 
   @Override
-  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  @Transactional
   public OrderResponseDto createOrder(OrderRequestDto orderRequestDto, Long restaurantId) {
+    
     Restaurant restaurant = restaurantRepository.findOneById(restaurantId)
         .orElseThrow(() -> new RestaurantException(RestaurantError.RESTAURANT_NOT_FOUND));
 
@@ -68,10 +68,11 @@ public class OrderServiceImpl implements OrderService {
 
     List<MealDto> mealsDto = restaurantMapper.mapMealsInformation(mealsInformation);
     OrderDto orderDto = orderMapper.mapOrderMealsInformation(orderRequestDto, mealsDto);
-    validateTotalCost(orderDto);
 
     Order order = orderMapper.mapDbOder(orderRequestDto, restaurant);
 
+    validateTotalCost(orderDto);
+    
     try {
       // Save order
       orderRepository.save(order);

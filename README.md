@@ -33,6 +33,12 @@
 	bin/kafka-topics.sh --list --zookeeper localhost:2181
 ```
 
+<h1>Compile project.</h1>
+1- Generate jar file with the following command, inside resto-deli folder:
+```shell
+	mvn clean install
+```
+
 <h1>Producer execution.</h1>
 
 1- Run application in jar location:

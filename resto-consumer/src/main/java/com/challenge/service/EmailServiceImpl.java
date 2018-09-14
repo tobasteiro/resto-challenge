@@ -19,7 +19,7 @@ public class EmailServiceImpl implements EmailService {
 
   @Override
   @Async
-  @Retryable
+  @Retryable(maxAttempts = 5)
   public void sendOrderMail(String restaurantMail, OrderDto orderDto) {
     try {
       SimpleMailMessage message = new SimpleMailMessage();

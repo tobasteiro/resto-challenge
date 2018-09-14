@@ -1,0 +1,35 @@
+{
+    "id": 1,
+    "logoUrl": "http://orig11.deviantart.net/c4b2/f/2009/132/5/6/pepsi_logotype_by_douf.jpg",
+    "commercialName": "Pepsi Name",
+    "legalName": "Pepsi Deli SRL",
+    "rating": 3,
+    "commercialEmail": "admin@gmail.com",
+    "adminNumber": "+54 11 5555 4444",
+    "address": "1 de Mayo 1000, Godoy Cruz, Mendoza",
+    "location": {
+        "latitude": -32.914459,
+        "longitude": -68.858399
+    },
+    "meals": [
+        {
+            "mealId": 1,
+            "mealName": "Pepsi bottle",
+            "mealDescription": "Pepsi 1l",
+            "mealPrice": 10
+        },
+        {
+            "mealId": 2,
+            "mealName": "Coke bottle",
+            "mealDescription": "Coca 1l",
+            "mealPrice": 20
+        }
+    ],
+    "reviews": [
+        {
+            "reviewName": "Good attention",
+            "reviewDescription": "Not too shabby",
+            "rating": 3
+        }
+    ]
+}

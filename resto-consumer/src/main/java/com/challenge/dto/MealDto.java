@@ -9,6 +9,10 @@ public class MealDto {
   private String mealDescription;
   private BigDecimal mealPrice;
 
+  public MealDto() {
+    super();
+  }
+  
   public MealDto(Long mealId, String mealName, String mealDescription, BigDecimal mealPrice) {
     super();
     this.mealId = mealId;

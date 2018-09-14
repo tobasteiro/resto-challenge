@@ -1,6 +1,7 @@
 package com.challenge.util;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,7 +21,7 @@ public class OperationUtils {
     }
     double doubleAverage = reviewsDto.stream().mapToDouble(ReviewDto::getRating).average()
         .orElse(Double.NaN);
-    return new BigDecimal(doubleAverage);
+    return new BigDecimal(doubleAverage).setScale(2, RoundingMode.HALF_UP);
   }
 
   /**
@@ -33,7 +34,7 @@ public class OperationUtils {
     }
     double doubleAverage = reviews.stream().mapToDouble(Review::getRating).average()
         .orElse(Double.NaN);
-    return new BigDecimal(doubleAverage);
+    return new BigDecimal(doubleAverage).setScale(2, RoundingMode.HALF_UP);
   }
 
   /**
@@ -44,6 +45,7 @@ public class OperationUtils {
     if (Objects.isNull(meals)) {
       return null;
     }
-    return meals.stream().map(m -> m.getMealPrice()).reduce(BigDecimal.ZERO, (p, q) -> p.add(q));
+    return meals.stream().map(m -> m.getMealPrice()).reduce(BigDecimal.ZERO, (p, q) -> p.add(q))
+        .setScale(2, RoundingMode.HALF_UP);
   }
 }

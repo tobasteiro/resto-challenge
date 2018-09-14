@@ -25,6 +25,17 @@ public class OrderDto {
   @NotNull
   private String phoneNumber;
 
+  public OrderDto(List<MealDto> meals, BigDecimal totalCost, String address, LocationDto location,
+      String restaurantMail, String phoneNumber) {
+    super();
+    this.meals = meals;
+    this.totalCost = totalCost;
+    this.address = address;
+    this.location = location;
+    this.restaurantMail = restaurantMail;
+    this.phoneNumber = phoneNumber;
+  }
+
   public OrderDto() {
     super();
   }

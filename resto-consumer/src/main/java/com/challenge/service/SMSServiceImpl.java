@@ -13,7 +13,7 @@ public class SMSServiceImpl implements SMSService {
 
   @Override
   @Async
-  @Retryable
+  @Retryable(maxAttempts = 5)
   public void sendSmsToClient(String phoneNumber) {
     LOG.info("Sending sms to client's phone: " + phoneNumber);
   }

@@ -2,6 +2,7 @@ package com.challenge.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,11 +20,12 @@ public class RestaurantErrorHandlerAdvice {
    */
   @ExceptionHandler(RestaurantException.class)
   public ResponseEntity<ErrorMessage> restaurantExceptionHandling(RestaurantException exception) {
+    HttpStatus httpStatus = HttpStatus.valueOf(exception.getError().getHttpCode());
     ErrorMessage error = new ErrorMessage();
     error.setError("RestaurantException");
     error.setErrorDescription(exception.getMessage());
     LOG.error("Error : " + exception.getMessage(), exception);
-    return new ResponseEntity<>(error, error.getHttpStatus());
+    return new ResponseEntity<>(error, httpStatus);
   }
 
   /**
@@ -34,11 +36,12 @@ public class RestaurantErrorHandlerAdvice {
    */
   @ExceptionHandler(OrderException.class)
   public ResponseEntity<ErrorMessage> orderExceptionHandling(OrderException exception) {
+    HttpStatus httpStatus = HttpStatus.valueOf(exception.getError().getHttpCode());
     ErrorMessage error = new ErrorMessage();
     error.setError("OrderException");
     error.setErrorDescription(exception.getMessage());
     LOG.error("Error : " + exception.getMessage(), exception);
-    return new ResponseEntity<>(error, error.getHttpStatus());
+    return new ResponseEntity<>(error, httpStatus);
   }
 
 

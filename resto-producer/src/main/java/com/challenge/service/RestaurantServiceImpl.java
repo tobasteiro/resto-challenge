@@ -126,19 +126,22 @@ public class RestaurantServiceImpl implements RestaurantService {
   public RateRestaurantResponseDto rateRestaurant(Long restaurantId, ReviewDto reviewDto) {
     Restaurant restaurant = restaurantRepository.findOneById(restaurantId)
         .orElseThrow(() -> new RestaurantException(RestaurantError.RESTAURANT_NOT_FOUND));
-    BigDecimal rating = OperationUtils.calculateRating(restaurant.getReviews());
     
     Review dbReview = restaurantMapper.mapDbReview(reviewDto, restaurant);
 
-    restaurant.setRating(rating);
     restaurant.addReview(dbReview);
+    
+    BigDecimal rating = BigDecimal.ZERO;
     try {
       dbReview = reviewRepository.save(dbReview);
+      rating = OperationUtils.calculateRating(restaurant.getReviews());
+      restaurant.setRating(rating);
       restaurantRepository.save(restaurant);
     } catch(UnexpectedRollbackException e) {
       LOG.error("Error rating restaurant: ", e);
       new RestaurantException(RestaurantError.DATABASE_ERROR);
     }
+    reviewDto.setReviewId(dbReview.getId());
     return restaurantMapper.mapRateRestaurantResponse(restaurant.getId(), reviewDto, rating);
   }
 

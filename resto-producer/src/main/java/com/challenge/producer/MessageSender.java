@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.challenge.exception.KafkaException;
 
@@ -25,6 +27,7 @@ public class MessageSender<T> {
    * @throws KafkaException. 
    */
   @Async
+  @Transactional(propagation = Propagation.NOT_SUPPORTED)
   public void send(T payload, String topic) throws KafkaException {
     LOG.info("sending message='{}'", payload.toString());
     try {

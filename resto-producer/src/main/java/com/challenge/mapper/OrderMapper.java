@@ -2,7 +2,6 @@ package com.challenge.mapper;
 
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import com.challenge.dto.MealDto;
@@ -48,10 +47,9 @@ public class OrderMapper {
    */
   public OrderDto mapOrderMealsInformation(OrderRequestDto orderRequestDto,
       List<MealDto> mealsInformation) {
-    OrderDto orderDto = new OrderDto();
-    BeanUtils.copyProperties(orderRequestDto, orderDto);
-    orderDto.setMeals(mealsInformation);
-    return orderDto;
+    return new OrderDto(mealsInformation, orderRequestDto.getTotalCost(),
+        orderRequestDto.getAddress(), orderRequestDto.getLocation(),
+        orderRequestDto.getRestaurantMail(), orderRequestDto.getPhoneNumber());
   }
 
 }
