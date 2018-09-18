@@ -66,7 +66,7 @@ public class RestaurantServiceImpl implements RestaurantService {
       }
     } catch (UnexpectedRollbackException e) {
       LOG.error("Error creating restaurant: ", e);
-      new RestaurantException(RestaurantError.DATABASE_ERROR);
+      throw new RestaurantException(RestaurantError.DATABASE_ERROR);
     }
     return restaurantMapper.mapRestaurantInformation(restaurant);
   }
@@ -100,7 +100,7 @@ public class RestaurantServiceImpl implements RestaurantService {
           .orElseThrow(() -> new RestaurantException(RestaurantError.RESTAURANT_NOT_FOUND)));
     } catch (Exception e) {
       LOG.error("Error deleting restaurant: ", e);
-      new RestaurantException(RestaurantError.DATABASE_ERROR);
+      throw new RestaurantException(RestaurantError.DATABASE_ERROR);
     }
   }
 
@@ -116,7 +116,7 @@ public class RestaurantServiceImpl implements RestaurantService {
       restaurantRepository.save(restaurant);
     } catch (UnexpectedRollbackException e) {
       LOG.error("Error updating restaurant: ", e);
-      new RestaurantException(RestaurantError.DATABASE_ERROR);
+      throw new RestaurantException(RestaurantError.DATABASE_ERROR);
     }
     return restaurantMapper.mapRestaurantInformation(restaurant);
   }
@@ -139,7 +139,7 @@ public class RestaurantServiceImpl implements RestaurantService {
       restaurantRepository.save(restaurant);
     } catch(UnexpectedRollbackException e) {
       LOG.error("Error rating restaurant: ", e);
-      new RestaurantException(RestaurantError.DATABASE_ERROR);
+      throw new RestaurantException(RestaurantError.DATABASE_ERROR);
     }
     reviewDto.setReviewId(dbReview.getId());
     return restaurantMapper.mapRateRestaurantResponse(restaurant.getId(), reviewDto, rating);
@@ -158,13 +158,14 @@ public class RestaurantServiceImpl implements RestaurantService {
       mealDto.setMealId(meal.getId());
     } catch (UnexpectedRollbackException e) {
       LOG.error("Error creating meal: ", e);
-      new RestaurantException(RestaurantError.DATABASE_ERROR);
+      throw new RestaurantException(RestaurantError.DATABASE_ERROR);
     }
 
     return mealDto;
   }
 
   @Override
+  @Transactional
   public MealDto updateMeal(Long restaurantId, Long mealId, MealDto mealDto) {
     try {
       Meal meal = mealRepository.findOneByIdAndRestaurantId(mealId, restaurantId);
@@ -172,7 +173,7 @@ public class RestaurantServiceImpl implements RestaurantService {
       mealRepository.save(meal);
     } catch (UnexpectedRollbackException e) {
       LOG.error("Error updating meal: ", e);
-      new RestaurantException(RestaurantError.DATABASE_ERROR);
+      throw new RestaurantException(RestaurantError.DATABASE_ERROR);
     }
     
     return mealDto;
@@ -186,7 +187,7 @@ public class RestaurantServiceImpl implements RestaurantService {
       mealRepository.delete(meal);
     } catch (Exception e) {
       LOG.error("Error deleting meal: ", e);
-      new RestaurantException(RestaurantError.DATABASE_ERROR);
+      throw new RestaurantException(RestaurantError.DATABASE_ERROR);
     }
   }
 

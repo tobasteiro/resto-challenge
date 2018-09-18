@@ -1,15 +1,11 @@
 package com.challenge.service;
 
-import java.math.BigDecimal;
-import java.util.List;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.UnexpectedRollbackException;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.challenge.dto.MealDto;
 import com.challenge.dto.OrderDto;
 import com.challenge.dto.OrderRequestDto;
 import com.challenge.dto.OrderResponseDto;
@@ -17,37 +13,21 @@ import com.challenge.enumeration.RestaurantError;
 import com.challenge.exception.GeolocationException;
 import com.challenge.exception.KafkaException;
 import com.challenge.exception.OrderException;
-import com.challenge.exception.RestaurantException;
 import com.challenge.facade.GeoLocationFacade;
 import com.challenge.mapper.OrderMapper;
-import com.challenge.mapper.RestaurantMapper;
-import com.challenge.model.Meal;
-import com.challenge.model.Order;
-import com.challenge.model.Restaurant;
 import com.challenge.producer.MessageSender;
-import com.challenge.repository.MealRepository;
-import com.challenge.repository.OrderRepository;
-import com.challenge.repository.RestaurantRepository;
-import com.challenge.util.OperationUtils;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
-  @Autowired
-  private RestaurantRepository restaurantRepository;
+  private static final Logger LOG = LoggerFactory.getLogger(OrderServiceImpl.class);
 
   @Autowired
-  private OrderRepository orderRepository;
-
-  @Autowired
-  private MealRepository mealRepository;
+  private CreateOrderService createOrderService;
 
   @Autowired
   private OrderMapper orderMapper;
   
-  @Autowired
-  private RestaurantMapper restaurantMapper;
-
   @Autowired
   private GeoLocationFacade geoLocationFacade;
 
@@ -58,52 +38,27 @@ public class OrderServiceImpl implements OrderService {
   private String orderTopic;
 
   @Override
-  @Transactional
   public OrderResponseDto createOrder(OrderRequestDto orderRequestDto, Long restaurantId) {
+
+    OrderDto orderDto = createOrderService.createDbOrder(restaurantId, orderRequestDto);
     
-    Restaurant restaurant = restaurantRepository.findOneById(restaurantId)
-        .orElseThrow(() -> new RestaurantException(RestaurantError.RESTAURANT_NOT_FOUND));
-
-    List<Meal> mealsInformation = mealRepository.findByIdIn(orderRequestDto.getMeals());
-
-    List<MealDto> mealsDto = restaurantMapper.mapMealsInformation(mealsInformation);
-    OrderDto orderDto = orderMapper.mapOrderMealsInformation(orderRequestDto, mealsDto);
-
-    Order order = orderMapper.mapDbOder(orderRequestDto, restaurant);
-
-    validateTotalCost(orderDto);
-    
-    try {
-      // Save order
-      orderRepository.save(order);
-    } catch (UnexpectedRollbackException e) {
-      throw new OrderException(RestaurantError.DATABASE_ERROR);
-    }
-
     try {
       // Send kafka message notification
       messageSender.send(orderDto, orderTopic);
 
       // Calculate ETA with google maps api
-      String calculatedETA = geoLocationFacade.calculateETA(order.getLocation(),
-          restaurant.getLocation());
+      String calculatedETA = geoLocationFacade.calculateETA(orderDto.getLocation(),
+          orderDto.getRestaurantLocation());
 
       return orderMapper.mapOrderResponse(orderDto, calculatedETA);
     } catch (KafkaException e) {
       throw new OrderException(RestaurantError.ERROR_SENDING_MESSAGE);
     } catch (GeolocationException e) {
-      throw new OrderException(RestaurantError.GEOLOCATION_API_ERROR);
-    }
-  }
-
-  private void validateTotalCost(OrderDto orderDto) {
-    BigDecimal totalCost = orderDto.getTotalCost();
-
-    BigDecimal calculatedCost = OperationUtils.calculateMealsTotalPrice(orderDto.getMeals());
-
-    // Total amount should be greater or equal than meal prices sum.
-    if (totalCost.compareTo(calculatedCost) < 0) {
-      throw new RestaurantException(RestaurantError.INVALID_TOTAL_AMOUNT);
+      LOG.error("Error calling Google Maps API: ", e);
+      // If there is an error with google maps API, it shouldn't fail.
+      return orderMapper.mapOrderResponse(orderDto, "N/A");
+    } catch (Exception e) {
+      throw new OrderException(RestaurantError.ORDER_CREATION_ERROR);
     }
   }
 

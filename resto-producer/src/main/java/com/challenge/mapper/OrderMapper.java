@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.challenge.dto.LocationDto;
 import com.challenge.dto.MealDto;
 import com.challenge.dto.OrderDto;
 import com.challenge.dto.OrderRequestDto;
 import com.challenge.dto.OrderResponseDto;
+import com.challenge.model.Location;
 import com.challenge.model.Order;
 import com.challenge.model.Restaurant;
 import com.challenge.util.LocationUtils;
@@ -43,13 +45,15 @@ public class OrderMapper {
   /**
    * @param orderRequestDto.
    * @param mealsInformation.
+   * @param restaurantLocation.
    * @return order dto with meal info.
    */
   public OrderDto mapOrderMealsInformation(OrderRequestDto orderRequestDto,
-      List<MealDto> mealsInformation) {
+      List<MealDto> mealsInformation, Location restaurantLocation) {
     return new OrderDto(mealsInformation, orderRequestDto.getTotalCost(),
         orderRequestDto.getAddress(), orderRequestDto.getLocation(),
-        orderRequestDto.getRestaurantMail(), orderRequestDto.getPhoneNumber());
+        orderRequestDto.getRestaurantMail(), orderRequestDto.getPhoneNumber(),
+        new LocationDto(restaurantLocation.getLatitude(), restaurantLocation.getLongitude()));
   }
 
 }

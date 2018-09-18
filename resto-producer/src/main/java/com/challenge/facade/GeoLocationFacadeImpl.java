@@ -4,11 +4,9 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.challenge.dto.LocationDto;
 import com.challenge.exception.GeolocationException;
-import com.challenge.model.Location;
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.DistanceMatrixApiRequest;
 import com.google.maps.GeoApiContext;
@@ -24,8 +22,7 @@ public class GeoLocationFacadeImpl implements GeoLocationFacade {
 	private String apiKey;
 
 	@Override
-	@Transactional(propagation = Propagation.NOT_SUPPORTED)
-	public String calculateETA(Location origin, Location destination) throws GeolocationException {
+	public String calculateETA(LocationDto origin, LocationDto destination) throws GeolocationException {
     GeoApiContext context = new GeoApiContext().setApiKey(apiKey);
 
 		DistanceMatrix trix = null;

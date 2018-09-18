@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class OrderDto {
 
   @NotNull
@@ -24,9 +26,12 @@ public class OrderDto {
 
   @NotNull
   private String phoneNumber;
+  
+  @JsonIgnore
+  private LocationDto restaurantLocation;
 
   public OrderDto(List<MealDto> meals, BigDecimal totalCost, String address, LocationDto location,
-      String restaurantMail, String phoneNumber) {
+      String restaurantMail, String phoneNumber, LocationDto restaurantLocation) {
     super();
     this.meals = meals;
     this.totalCost = totalCost;
@@ -34,6 +39,7 @@ public class OrderDto {
     this.location = location;
     this.restaurantMail = restaurantMail;
     this.phoneNumber = phoneNumber;
+    this.restaurantLocation = restaurantLocation;
   }
 
   public OrderDto() {
@@ -68,4 +74,8 @@ public class OrderDto {
     return phoneNumber;
   }
 
+  public LocationDto getRestaurantLocation() {
+    return restaurantLocation;
+  }
+  
 }
